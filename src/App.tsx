@@ -1,8 +1,8 @@
-import React from "react";
 import { Header } from "./components/HeaderComponent/Header";
+import "./styles/global.css";
 
 function App() {
-  return <Header/>;
+  return <Header />;
 }
 
 export default App;
