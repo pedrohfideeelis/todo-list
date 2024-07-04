@@ -1,4 +1,4 @@
-import { FormEvent, useState } from "react";
+import { FormEvent, useEffect, useState } from "react";
 import styles from "./styles.module.scss";
 
 interface Task {
@@ -21,13 +21,23 @@ export const Tasks: React.FC = () => {
       return;
     }
 
-    setTasks([
+    const newTasks = [
       { id: new Date().getTime(), title: taskTitle, done: false },
       ...tasks,
-    ]);
+    ];
+
+    setTasks(newTasks);
+    localStorage.setItem("tasks", JSON.stringify(newTasks));
 
     settaskTitle("");
   }
+
+  useEffect(() => {
+    const tasksOnLocalStorage = localStorage.getItem("tasks");
+    if (tasksOnLocalStorage) {
+      setTasks(JSON.parse(tasksOnLocalStorage));
+    }
+  }, []);
 
   return (
     <section className={styles.container}>
